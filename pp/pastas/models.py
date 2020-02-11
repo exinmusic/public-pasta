@@ -1,13 +1,13 @@
 from django.db import models
 
 CATEGORIES = [
-    ('ns','NSFW'),
-    ('ws','Wholesome'),
-    ('sb','Sermon'),
-    ('bb','Intelligent'),
-    ('ha','Funny'),
-    ('aw','Sad'),
-    ('xx','Flagged')
+    ('wholesome','wholesome'),
+    ('sermon','sermon'),
+    ('intelligent','intelligent'),
+    ('funny','funny'),
+    ('sad','sad'),
+    ('politics','politics'),
+    ('flagged','flagged')
 ]
 
 class Pasta(models.Model):
