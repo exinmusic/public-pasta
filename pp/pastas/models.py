@@ -11,7 +11,7 @@ CATEGORIES = [
 ]
 
 class Pasta(models.Model):
-    text = models.TextField(max_length=2000)
+    text = models.TextField(max_length=15000)
     date_created = models.DateTimeField(auto_now_add=True, blank=True)
-    name = models.CharField(max_length=80, default='', blank=True)
+    name = models.CharField(max_length=500, default='', blank=True)
     category = models.CharField(max_length=40, choices=CATEGORIES, default='', blank=True)
