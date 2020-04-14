@@ -7,6 +7,8 @@ CATEGORIES = [
     ('funny','funny'),
     ('sad','sad'),
     ('politics','politics'),
+    ('complaint','complaint'),
+    ('emojis','emojis'),
     ('flagged','flagged')
 ]
 
