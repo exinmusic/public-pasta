@@ -1,15 +1,15 @@
 from django.db import models
 
 CATEGORIES = [
-    ('wholesome','wholesome'),
-    ('sermon','sermon'),
-    ('intelligent','intelligent'),
-    ('funny','funny'),
-    ('sad','sad'),
-    ('politics','politics'),
-    ('complaint','complaint'),
-    ('emojis','emojis'),
-    ('flagged','flagged')
+    ('wholesome','wholesome'),      # Feel good content or good natured.
+    ('sermon','sermon'),            # Preaching. Written with arrogance.
+    ('intelligent','intelligent'),  # Not ironically intelligent, as much as possible.
+    ('funny','funny'),              # Sentiment is mostly funny
+    ('sad','sad'),                  # Sentiment is mostly sad
+    ('politics','politics'),        # Flags anything political, includes mentions of politicians
+    ('complaint','complaint'),      # Flags compaints
+    ('emojis','emojis'),            # Content with exessive use of emoticons 
+    ('nsfw','nsfw')                 # Content with this flag will not appear in clean search results
 ]
 
 class Pasta(models.Model):
