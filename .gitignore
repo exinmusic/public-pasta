@@ -127,3 +127,9 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+# VisualCode Settings
+.vscode/
+
+# React frontend builds
+.frontend/

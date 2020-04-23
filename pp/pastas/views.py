@@ -1,10 +1,14 @@
 from django.contrib.auth import authenticate, login
+from django.shortcuts import render
 from rest_framework import viewsets
 from rest_framework.generics import GenericAPIView
 from rest_framework.mixins import UpdateModelMixin, RetrieveModelMixin
-from rest_framework.permissions import IsAuthenticatedOrReadOnly
+from rest_framework.permissions import IsAuthenticatedOrReadOnly, IsAuthenticated
 from .serializers import PastaSerializer
 from .models import Pasta
+
+def index(request):
+    return render(request, "build/index.html")
 
 def basic_auth(request):
     """

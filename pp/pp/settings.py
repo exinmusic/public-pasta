@@ -54,7 +54,7 @@ ROOT_URLCONF = 'pp.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, '.frontend')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -118,6 +118,9 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
 STATIC_URL = '/static/'
+STATICFILES_DIRS = (
+    os.path.join(BASE_DIR, '.frontend', "build", "static"),  # update the STATICFILES_DIRS
+)
 
 # Rest Global Settings
 REST_FRAMEWORK = {
@@ -134,9 +137,9 @@ REST_FRAMEWORK = {
     'PAGE_SIZE': 1,
 
     # Disable browsable api
-    #'DEFAULT_RENDERER_CLASSES': (
-    #    'rest_framework.renderers.JSONRenderer',
-    #)
+    'DEFAULT_RENDERER_CLASSES': (
+        'rest_framework.renderers.JSONRenderer',
+    )
 }
 
 CORS_ORIGIN_ALLOW_ALL = True
