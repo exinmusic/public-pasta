@@ -9,6 +9,7 @@ router.register(r'pastas', views.PastaViewSet)
 urlpatterns = [
     path('', views.index),
     path('admin/', admin.site.urls),
+    path('api/user/', views.user_status),
     path('api/', include(router.urls)),
     path('basic-auth/', views.basic_auth),
     path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),

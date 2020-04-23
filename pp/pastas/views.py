@@ -1,12 +1,16 @@
 from django.contrib.auth import authenticate, login
+from django.views.decorators.csrf import ensure_csrf_cookie
 from django.shortcuts import render
+from django.http import HttpResponse, JsonResponse
 from rest_framework import viewsets
 from rest_framework.generics import GenericAPIView
 from rest_framework.mixins import UpdateModelMixin, RetrieveModelMixin
 from rest_framework.permissions import IsAuthenticatedOrReadOnly, IsAuthenticated
 from .serializers import PastaSerializer
 from .models import Pasta
+import json
 
+@ensure_csrf_cookie
 def index(request):
     return render(request, "build/index.html")
 
@@ -14,16 +18,21 @@ def basic_auth(request):
     """
     Basic Auth.
     """
-    username = request.POST['username']
-    password = request.POST['password']
+    payload = json.loads(request.body.decode('utf-8'))
+    username = payload['username']
+    password = payload['password']
     user = authenticate(request, username=username, password=password)
     if user is not None:
         login(request, user)
-        # Redirect to a success page.
-        ...
-    else:
-        # Return an 'invalid login' error message.
-        ...
+        print(f"{user} just logged on.")
+        return HttpResponse(f"{user}, you're logged in.")
+
+def user_status(request):
+    """
+    Returns user status
+    """
+    if request.user:
+        return JsonResponse({"status":True})
 
 class PastaViewSet(viewsets.ModelViewSet):
     """
