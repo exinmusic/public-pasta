@@ -1,4 +1,4 @@
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from django.views.decorators.csrf import ensure_csrf_cookie
 from django.shortcuts import render
 from django.http import HttpResponse, JsonResponse
@@ -14,7 +14,7 @@ import json
 def index(request):
     return render(request, "build/index.html")
 
-def basic_auth(request):
+def user_login(request):
     """
     Basic Auth.
     """
@@ -27,12 +27,17 @@ def basic_auth(request):
         print(f"{user} just logged on.")
         return HttpResponse(f"{user}, you're logged in.")
 
+def user_logout(request):
+    logout(request)
+
 def user_status(request):
     """
     Returns user status
     """
-    if request.user:
-        return JsonResponse({"status":True})
+    if request.user.is_authenticated:
+        return JsonResponse({"authenticated" : True, "username" : request.user.username})
+    else:
+        return JsonResponse({"authenticated":False})
 
 class PastaViewSet(viewsets.ModelViewSet):
     """
