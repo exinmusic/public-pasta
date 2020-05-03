@@ -2,7 +2,9 @@ from django.contrib.auth import authenticate, login, logout
 from django.views.decorators.csrf import ensure_csrf_cookie
 from django.shortcuts import render
 from django.http import HttpResponse, JsonResponse
+from rest_framework.response import Response
 from rest_framework import viewsets
+from rest_framework.views import APIView
 from rest_framework.generics import GenericAPIView, CreateAPIView, UpdateAPIView
 from rest_framework.mixins import UpdateModelMixin, RetrieveModelMixin
 from rest_framework.permissions import IsAuthenticatedOrReadOnly, IsAuthenticated, AllowAny
@@ -48,3 +50,14 @@ class PastaViewSet(viewsets.ModelViewSet):
     queryset = Pasta.objects.all().order_by('-date_created')
     serializer_class = PastaSerializer
     permission_classes = [IsAuthenticatedOrReadOnly]
+
+class PastaPublicSubmit(APIView):
+    """
+    POST    -   Create a pasta without privilage.
+    """
+
+    permission_classes = [AllowAny]
+    def post(self, request):
+        payload = json.loads(request.body.decode('utf-8'))
+        Pasta.objects.create(name=name,text=text)
+        return Response({"message":"Unreviewed pure Public Pasta! Fresh from the microwave..."})
