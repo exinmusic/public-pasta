@@ -14,5 +14,4 @@ urlpatterns = [
     path('login/', views.user_login),
     path('logout/', views.user_logout),
     path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
-    path('pastas/<pk>', views.PastaRetrieveUpdateView.as_view(), name='pasta_retrieve_update'),
 ]
