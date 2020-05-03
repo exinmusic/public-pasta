@@ -11,6 +11,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', include(router.urls)),
     path('api/user/', views.user_status),
+    path('api/submit/', views.PastaPublicSubmit.as_view()),
     path('login/', views.user_login),
     path('logout/', views.user_logout),
     path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),

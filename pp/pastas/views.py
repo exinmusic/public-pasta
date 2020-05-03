@@ -57,7 +57,7 @@ class PastaPublicSubmit(APIView):
     """
 
     permission_classes = [AllowAny]
-    def post(self, request):
-        payload = json.loads(request.body.decode('utf-8'))
-        Pasta.objects.create(name=name,text=text)
+    def post(self, request, format=None):
+        payload = request.data
+        Pasta.objects.create(name=payload['name'],text=payload['text'])
         return Response({"message":"Unreviewed pure Public Pasta! Fresh from the microwave..."})
