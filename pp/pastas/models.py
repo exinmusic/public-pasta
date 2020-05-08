@@ -4,12 +4,15 @@ CATEGORIES = [
     ('wholesome','wholesome'),      # Feel good content or good natured.
     ('sermon','sermon'),            # Preaching. Written with arrogance.
     ('intelligent','intelligent'),  # Not ironically intelligent, as much as possible.
-    ('funny','funny'),              # Sentiment is mostly funny
-    ('sad','sad'),                  # Sentiment is mostly sad
-    ('politics','politics'),        # Flags anything political, includes mentions of politicians
-    ('complaint','complaint'),      # Flags compaints
-    ('emojis','emojis'),            # Content with exessive use of emoticons 
-    ('nsfw','nsfw')                 # Content with this flag will not appear in clean search results
+    ('funny','funny'),              # Sentiment is mostly funny.
+    ('sad','sad'),                  # Sentiment is mostly sad.
+    ('political','political'),      # Flags anything political, includes mentions of politicians.
+    ('complaint','complaint'),      # Flags compaints.
+    ('emoji','emoji'),              # Content with exessive use of emoticons.
+    ('daddy','daddy'),              # Content written "to" sugar daddies.
+    ('sexy','sexy')                 # Sexual Content.
+    ('pro','pro'),                  # Professional advise.
+    ('nsfw','nsfw')                 # Content with this flag will not appear in clean search results.
 ]
 
 class Pasta(models.Model):
