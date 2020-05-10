@@ -150,9 +150,9 @@ REST_FRAMEWORK = {
     'PAGE_SIZE': 1,
 
     # Disable browsable api
-    #'DEFAULT_RENDERER_CLASSES': (
-    #    'rest_framework.renderers.JSONRenderer',
-    #)
+    'DEFAULT_RENDERER_CLASSES': (
+        'rest_framework.renderers.JSONRenderer',
+    )
 }
 
 CORS_ORIGIN_ALLOW_ALL = True
