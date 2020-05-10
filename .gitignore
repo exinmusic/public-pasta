@@ -133,3 +133,6 @@ dmypy.json
 
 # React frontend builds
 .frontend/
+
+# Private variables
+private.py
