@@ -3,7 +3,8 @@ from django.views.decorators.csrf import ensure_csrf_cookie
 from django.shortcuts import render
 from django.http import HttpResponse, JsonResponse
 from rest_framework.response import Response
-from rest_framework import viewsets
+from rest_framework import viewsets, filters
+from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.views import APIView
 from rest_framework.generics import GenericAPIView, CreateAPIView, UpdateAPIView
 from rest_framework.mixins import UpdateModelMixin, RetrieveModelMixin
@@ -31,6 +32,7 @@ def user_login(request):
 
 def user_logout(request):
     logout(request)
+    return HttpResponse("User logged out.")
 
 def user_status(request):
     """
@@ -47,6 +49,9 @@ class PastaViewSet(viewsets.ModelViewSet):
     POST    -   Create a pasta.
     PUT     -   Update pasta.
     """
+    search_fields = ['text']
+    filterset_fields = ['categories', 'sentiment']
+    filter_backends = [DjangoFilterBackend]
     queryset = Pasta.objects.all().order_by('-date_created')
     serializer_class = PastaSerializer
     permission_classes = [IsAuthenticatedOrReadOnly]
