@@ -49,9 +49,9 @@ class PastaViewSet(viewsets.ModelViewSet):
     POST    -   Create a pasta.
     PUT     -   Update pasta.
     """
-    search_fields = ['text']
-    filterset_fields = ['categories', 'sentiment']
-    filter_backends = [DjangoFilterBackend]
+    search_fields = ['name', 'text']
+    filterset_fields = ['sentiment', 'long']
+    filter_backends = [DjangoFilterBackend, filters.SearchFilter]
     queryset = Pasta.objects.all().order_by('-date_created')
     serializer_class = PastaSerializer
     permission_classes = [IsAuthenticatedOrReadOnly]
