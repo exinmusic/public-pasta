@@ -6,4 +6,3 @@ class PastaSerializer(serializers.ModelSerializer):
 	class Meta:
 		model = Pasta
 		fields = ['id','text', 'date_created', 'name', 'long', 'sentiment', 'categories']
-

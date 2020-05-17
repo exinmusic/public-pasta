@@ -1,7 +1,6 @@
 from django.db import models
 from multiselectfield import MultiSelectField
 
-# Categor
 CATEGORIES = [
     ('wholesome','wholesome'),      # Feel good content or good natured.
     ('sermon','sermon'),            # Preaching. Written with arrogance.

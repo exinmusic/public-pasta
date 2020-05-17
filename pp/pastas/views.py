@@ -3,19 +3,60 @@ from django.views.decorators.csrf import ensure_csrf_cookie
 from django.shortcuts import render
 from django.http import HttpResponse, JsonResponse
 from rest_framework.response import Response
-from rest_framework import viewsets, filters
+from rest_framework import viewsets
+from rest_framework import filters as drfilters
 from django_filters.rest_framework import DjangoFilterBackend
+from django_filters import CharFilter, MultipleChoiceFilter, FilterSet
 from rest_framework.views import APIView
 from rest_framework.generics import GenericAPIView, CreateAPIView, UpdateAPIView
 from rest_framework.mixins import UpdateModelMixin, RetrieveModelMixin
 from rest_framework.permissions import IsAuthenticatedOrReadOnly, IsAuthenticated, AllowAny
 from .serializers import PastaSerializer
-from .models import Pasta
+from .models import Pasta, CATEGORIES
 import json
 
+# MAIN
 @ensure_csrf_cookie
 def index(request):
     return render(request, "build/index.html")
+
+# PASTA
+
+class PastaFilter(FilterSet):
+    #categories = CharFilter(field_name='categories', method='filter_categories')
+
+    class Meta:
+        model = Pasta
+        fields = {'long':['exact'], 'sentiment':['exact'], 'categories':['contains']}
+
+    #def filter_categories(self, queryset, name, categories):
+    #    return queryset.filter(categories__contains=categories.split(','))
+
+class PastaViewSet(viewsets.ModelViewSet):
+    """
+    GET     -   List ALL pastas.
+    POST    -   Create a pasta.
+    PUT     -   Update pasta.
+    """
+    search_fields = ['name', 'text']
+    filterset_class = PastaFilter
+    filter_backends = [DjangoFilterBackend, drfilters.SearchFilter]
+    queryset = Pasta.objects.all().order_by('-date_created')
+    serializer_class = PastaSerializer
+    permission_classes = [IsAuthenticatedOrReadOnly]
+
+class PastaPublicSubmit(APIView):
+    """
+    POST    -   Create a pasta without privilage.
+    """
+
+    permission_classes = [AllowAny]
+    def post(self, request, format=None):
+        payload = request.data
+        Pasta.objects.create(name=payload['name'],text=payload['text'])
+        return Response({"message":"Unreviewed pure Public Pasta! Fresh from the microwave..."})
+
+# USER
 
 def user_login(request):
     """
@@ -42,27 +83,3 @@ def user_status(request):
         return JsonResponse({"authenticated" : True, "username" : request.user.username})
     else:
         return JsonResponse({"authenticated":False})
-
-class PastaViewSet(viewsets.ModelViewSet):
-    """
-    GET     -   List ALL pastas.
-    POST    -   Create a pasta.
-    PUT     -   Update pasta.
-    """
-    search_fields = ['name', 'text']
-    filterset_fields = ['sentiment', 'long']
-    filter_backends = [DjangoFilterBackend, filters.SearchFilter]
-    queryset = Pasta.objects.all().order_by('-date_created')
-    serializer_class = PastaSerializer
-    permission_classes = [IsAuthenticatedOrReadOnly]
-
-class PastaPublicSubmit(APIView):
-    """
-    POST    -   Create a pasta without privilage.
-    """
-
-    permission_classes = [AllowAny]
-    def post(self, request, format=None):
-        payload = request.data
-        Pasta.objects.create(name=payload['name'],text=payload['text'])
-        return Response({"message":"Unreviewed pure Public Pasta! Fresh from the microwave..."})
