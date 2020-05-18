@@ -21,17 +21,6 @@ def index(request):
     return render(request, "build/index.html")
 
 # PASTA
-
-class PastaFilter(FilterSet):
-    #categories = CharFilter(field_name='categories', method='filter_categories')
-
-    class Meta:
-        model = Pasta
-        fields = {'long':['exact'], 'sentiment':['exact'], 'categories':['contains']}
-
-    #def filter_categories(self, queryset, name, categories):
-    #    return queryset.filter(categories__contains=categories.split(','))
-
 class PastaViewSet(viewsets.ModelViewSet):
     """
     GET     -   List ALL pastas.
@@ -39,7 +28,7 @@ class PastaViewSet(viewsets.ModelViewSet):
     PUT     -   Update pasta.
     """
     search_fields = ['name', 'text']
-    filterset_class = PastaFilter
+    filterset_fields = {'long':['exact'], 'sentiment':['exact'], 'categories':['contains']}
     filter_backends = [DjangoFilterBackend, drfilters.SearchFilter]
     queryset = Pasta.objects.all().order_by('-date_created')
     serializer_class = PastaSerializer
