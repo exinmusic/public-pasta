@@ -21,7 +21,7 @@ DEBUG = True
 ALLOWED_HOSTS = [
     '127.0.0.1',
     '178.128.190.190',
-    'www.publicpasta.com'
+    'www.publicpasta.com',
     'publicpasta.com'
     ]
 
