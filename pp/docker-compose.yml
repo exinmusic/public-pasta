@@ -13,7 +13,7 @@ services:
     environment: 
       - PROD=1
     build: .
-    command: gunicorn pp.wsgi:application --bind 0.0.0.0:8000
+    command: python manage.py runserver 0.0.0.0:8000
     expose:
       - 8000
     depends_on:
