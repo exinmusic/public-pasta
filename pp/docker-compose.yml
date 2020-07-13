@@ -30,4 +30,4 @@ services:
       - web
 volumes:
   pgdata:
-    static_volume:
+  static_volume:
