@@ -21,7 +21,7 @@ services:
   nginx:
     build: ./nginx
     volumes:
-      - static_volume: code/.frontend/static
+      - static_volume: /code/.frontend/static
     ports:
       - 1337:80
     depends_on:
