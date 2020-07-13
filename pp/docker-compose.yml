@@ -20,12 +20,9 @@ services:
       - db
   nginx:
     build: ./nginx
-    volumes:
-      - static_volume:./static
     ports:
       - 1337:80
     depends_on:
       - web
 volumes:
   pgdata:
-  static_volume:
