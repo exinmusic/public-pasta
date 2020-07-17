@@ -70,8 +70,9 @@ def user_status(request):
     Returns user status
     """
     if request.user.is_authenticated:
+        token = Token.objects.get_or_create(user=request.user)
         return JsonResponse({"authenticated" : True, 
                             "username" : request.user.username, 
-                            "token" : Token.objects.get_or_create(user=request.user)})
+                            "token" : token[0].key})
     else:
         return JsonResponse({"authenticated":False})
