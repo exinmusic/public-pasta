@@ -11,6 +11,7 @@ from rest_framework.views import APIView
 from rest_framework.generics import GenericAPIView, CreateAPIView, UpdateAPIView
 from rest_framework.mixins import UpdateModelMixin, RetrieveModelMixin
 from rest_framework.permissions import IsAuthenticatedOrReadOnly, IsAuthenticated, AllowAny
+from rest_framework.authtoken.models import Token
 from .serializers import PastaSerializer
 from .models import Pasta, CATEGORIES
 import json
@@ -69,6 +70,8 @@ def user_status(request):
     Returns user status
     """
     if request.user.is_authenticated:
-        return JsonResponse({"authenticated" : True, "username" : request.user.username})
+        return JsonResponse({"authenticated" : True, 
+                            "username" : request.user.username, 
+                            "token" : Token.objects.get_or_create(user=request.user)})
     else:
         return JsonResponse({"authenticated":False})
