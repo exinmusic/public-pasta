@@ -16,7 +16,6 @@ services:
     command: gunicorn pp.wsgi:application --bind 0.0.0.0:8000
     volumes:
       - static_volume:/code/static
-      - ssl_certs:/code/certs
     expose:
       - 8000
     depends_on:
@@ -25,13 +24,18 @@ services:
     build: ./nginx
     volumes:
       - static_volume:/code/static
-      - ssl_certs:/code/certs
+      - ./data/certbot/conf:/etc/letsencrypt
+      - ./data/certbot/www:/var/www/certbot
     ports:
       - 80:80
       - 433:433
     depends_on:
       - web
+  certbot:
+    image: certbot/certbot
+    volumes:
+      - ./data/certbot/conf:/etc/letsencrypt
+      - ./data/certbot/www:/var/www/certbot
 volumes:
   pgdata:
   static_volume:
-  ssl_certs:
