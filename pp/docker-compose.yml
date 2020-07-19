@@ -33,3 +33,4 @@ services:
 volumes:
   pgdata:
   static_volume:
+  ssl_certs:
