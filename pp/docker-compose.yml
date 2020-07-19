@@ -16,6 +16,7 @@ services:
     command: gunicorn pp.wsgi:application --bind 0.0.0.0:8000
     volumes:
       - static_volume:/code/static
+      - ssl_certs:/code/certs
     expose:
       - 8000
     depends_on:
