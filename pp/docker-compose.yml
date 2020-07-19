@@ -24,8 +24,10 @@ services:
     build: ./nginx
     volumes:
       - static_volume:/code/static
+      - ssl_certs:/code/certs
     ports:
       - 80:80
+      - 433:433
     depends_on:
       - web
 volumes:
