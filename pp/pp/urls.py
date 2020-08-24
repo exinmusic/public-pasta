@@ -5,6 +5,7 @@ from pastas import views
 from django.views.generic import TemplateView
 from rest_framework.schemas import get_schema_view
 from django.views.generic.base import RedirectView
+from django.contrib.auth.decorators import login_required
 
 router = routers.DefaultRouter()
 router.register(r'pastas', views.PastaViewSet)
@@ -22,5 +23,14 @@ urlpatterns = [
     path('api/docs/', TemplateView.as_view(
         template_name='pastas/swagger.html',
         extra_context={'schema_url':'openapi-schema'}
-    ), name='swagger-ui')
+    ), name='swagger-ui'),
+    path('authopenapi', get_schema_view(
+        title="Authorized API",
+        description="API for authed users.",
+        version="1.0.0"
+    ), name='notopenapi-schema'),    
+    path('api/authdocs/', login_required(TemplateView.as_view(
+        template_name='pastas/swagger.html',
+        extra_context={'schema_url':'notopenapi-schema'}
+    )), name='swagger-ui')
 ]
