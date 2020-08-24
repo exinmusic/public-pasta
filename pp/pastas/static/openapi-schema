@@ -1,0 +1,220 @@
+openapi: 3.0.2
+info:
+  title: Public Pasta API
+  version: 1.0.0
+  description: "A public copypasta API"
+paths:
+  /api/pastas/:
+    get:
+      operationId: listPastas
+      description: 'GET     -   List ALL pastas.
+
+        POST    -   Create a pasta.
+
+        PUT     -   Update pasta.'
+      parameters:
+      - name: limit
+        required: false
+        in: query
+        description: Number of results to return per page.
+        schema:
+          type: integer
+      - name: offset
+        required: false
+        in: query
+        description: The initial index from which to return the results.
+        schema:
+          type: integer
+      - name: long
+        required: false
+        in: query
+        description: long
+        schema:
+          type: string
+      - name: sentiment
+        required: false
+        in: query
+        description: sentiment
+        schema:
+          type: string
+      - name: categories__contains
+        required: false
+        in: query
+        description: categories__contains
+        schema:
+          type: string
+      - name: search
+        required: false
+        in: query
+        description: A search term.
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  count:
+                    type: integer
+                    example: 123
+                  next:
+                    type: string
+                    nullable: true
+                  previous:
+                    type: string
+                    nullable: true
+                  results:
+                    type: array
+                    items:
+                      properties:
+                        id:
+                          type: integer
+                          readOnly: true
+                        text:
+                          type: string
+                          maxLength: 15000
+                        date_created:
+                          type: string
+                          format: date-time
+                          readOnly: true
+                        name:
+                          type: string
+                          maxLength: 500
+                        long:
+                          type: boolean
+                        sentiment:
+                          enum:
+                          - positive
+                          - negative
+                        categories:
+                          enum:
+                          - wholesome
+                          - sermon
+                          - intelligent
+                          - dumb
+                          - funny
+                          - sad
+                          - political
+                          - complaint
+                          - emoji
+                          - daddy
+                          - sexy
+                          - pro
+                          - creepy
+                          - food
+                          - nsfw
+                      required:
+                      - text
+          description: ''
+  /api/pastas/{id}/:
+    get:
+      operationId: retrievePasta
+      description: 'GET     -   List ALL pastas.
+
+        POST    -   Create a pasta.
+
+        PUT     -   Update pasta.'
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: A unique integer value identifying this pasta.
+        schema:
+          type: string
+      - name: long
+        required: false
+        in: query
+        description: long
+        schema:
+          type: string
+      - name: sentiment
+        required: false
+        in: query
+        description: sentiment
+        schema:
+          type: string
+      - name: categories__contains
+        required: false
+        in: query
+        description: categories__contains
+        schema:
+          type: string
+      - name: search
+        required: false
+        in: query
+        description: A search term.
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                properties:
+                  id:
+                    type: integer
+                    readOnly: true
+                  text:
+                    type: string
+                    maxLength: 15000
+                  date_created:
+                    type: string
+                    format: date-time
+                    readOnly: true
+                  name:
+                    type: string
+                    maxLength: 500
+                  long:
+                    type: boolean
+                  sentiment:
+                    enum:
+                    - positive
+                    - negative
+                  categories:
+                    enum:
+                    - wholesome
+                    - sermon
+                    - intelligent
+                    - dumb
+                    - funny
+                    - sad
+                    - political
+                    - complaint
+                    - emoji
+                    - daddy
+                    - sexy
+                    - pro
+                    - creepy
+                    - food
+                    - nsfw
+                required:
+                - text
+          description: ''
+  /api/submit/:
+    post:
+      operationId: CreatePastaPublicSubmit
+      description: POST    -   Create a pasta without privilage.
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema: &id001
+              properties:
+                text:
+                  type: string
+                  maxLength: 15000
+                name:
+                  type: string
+                  maxLength: 500
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                properties:
+                  message:
+                    type: string
+                    maxLength: 500
+          description: ''

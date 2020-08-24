@@ -9,27 +9,9 @@ from . import private
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
-
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = private.key
-
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
-
-SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
-SECURE_SSL_REDIRECT = True
-SESSION_COOKIE_SECURE = True
-CSRF_COOKIE_SECURE = True
-
-ALLOWED_HOSTS = [
-    '127.0.0.1',
-    '178.128.190.190',
-    'www.publicpasta.com',
-    'publicpasta.com'
-    ]
-
+SECRET_KEY = private.SECRET
+DEBUG = private.DEBUG
+ALLOWED_HOSTS = private.HOSTS
 
 # Application definition
 

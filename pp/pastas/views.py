@@ -38,8 +38,9 @@ class PastaViewSet(viewsets.ModelViewSet):
 class PastaPublicSubmit(APIView):
     """
     POST    -   Create a pasta without privilage.
-    """
 
+    PARAMETERS: 'name' 'text'
+    """
     permission_classes = [AllowAny]
     def post(self, request, format=None):
         payload = request.data
