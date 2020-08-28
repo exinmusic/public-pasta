@@ -5,4 +5,4 @@ from .models import Pasta, CATEGORIES
 class PastaSerializer(serializers.ModelSerializer):
 	class Meta:
 		model = Pasta
-		fields = ['id','text', 'date_created', 'name', 'long', 'sentiment', 'categories']
+		fields = ['id','text', 'date_created', 'name', 'safe', 'verified', 'sentiment', 'categories']

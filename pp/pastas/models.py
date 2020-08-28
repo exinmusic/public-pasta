@@ -16,7 +16,10 @@ CATEGORIES = [
     ('pro','pro'),                  # Professional advise.
     ('creepy', 'creepy'),           # Creepy or dark in nature.
     ('food', 'food'),               # Food
-    ('nsfw','nsfw')                 # Content with this flag will not appear in clean search results.
+    ('ascii-art', 'ascii-art'),     # 8===D -by xn
+    ('story', 'story'),             # Story time, gather around.
+    ('cyrillic', 'cyrillic'),       # Russian pastas only, comrade.
+    ('chad', 'chad'),               # Broh.
 ]
 
 SENTIMENTS = [
@@ -30,7 +33,8 @@ class Pasta(models.Model):
     date_created = models.DateTimeField(auto_now_add=True, blank=True)
     name         = models.CharField(max_length=500, default='', blank=True)
     categories   = MultiSelectField(max_length=150, choices=CATEGORIES, default='', blank=True)
-    long         = models.BooleanField(default=False)
+    safe         = models.BooleanField(default=False)   # Pasta could popup at work and not get a homie fired.
+    verified     = models.BooleanField(default=False)   # Famous pasta.
     sentiment    = models.CharField(max_length=8, choices=SENTIMENTS, default='', blank=True)
     def __str__(self):
         return self.name

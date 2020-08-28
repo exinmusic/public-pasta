@@ -29,7 +29,7 @@ class PastaViewSet(viewsets.ModelViewSet):
     PUT     -   Update pasta.
     """
     search_fields = ['name', 'text']
-    filterset_fields = {'long':['exact'], 'sentiment':['exact'], 'categories':['contains']}
+    filterset_fields = {'safe':['exact'], 'verified':['exact'], 'sentiment':['exact'], 'categories':['contains']}
     filter_backends = [DjangoFilterBackend, drfilters.SearchFilter]
     queryset = Pasta.objects.all().order_by('-date_created')
     serializer_class = PastaSerializer
